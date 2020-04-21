@@ -22,11 +22,13 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "better-scroll": "^2.0.0-beta.6",
     "immutable": "^4.0.0-rc.12",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-lazyload": "^2.6.7",
     "react-redux": "^7.2.0",
     "react-router": "^5.1.2",
     "react-router-config": "^5.1.1",
@@ -40,7 +42,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --host 0.0.0.0"
   },
   "browserslist": [
     "defaults",

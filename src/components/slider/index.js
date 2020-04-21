@@ -9,6 +9,7 @@ const Slider = (props) => {
     const { bannerList } = props;
 
     useEffect(() => {
+        if(sliderSwipper || !bannerList.length) return
         let newSliderSwiper = new Swiper('.slider-container', {
             loop: true,
             autoplay: {
@@ -19,7 +20,7 @@ const Slider = (props) => {
         })
         setSliderSwipper(newSliderSwiper)
 
-    }, [])
+    }, [bannerList.length, sliderSwipper])
 
     return (
         <SliderContainer>
@@ -29,8 +30,8 @@ const Slider = (props) => {
                     {
                         bannerList.map((slider, index) => {
                             return (
-                                //todo key={slider.imageUrl}
-                                <div className="swiper-slide" key={index}>
+                                //done key={slider.imageUrl}
+                                <div className="swiper-slide" key={slider.imageUrl}>
                                     <div className="slider-nav">
                                         <img src={slider.imageUrl} width="100%" height="100%" alt="推荐" />
                                     </div>

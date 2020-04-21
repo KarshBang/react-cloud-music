@@ -22,7 +22,7 @@ module.exports = {
                 loader: "babel-loader",
             },
             {
-                test: /\.jpg$/,
+                test: /\.(jpg|png)$/,
                 use: {
                     loader: 'url-loader',
                     options: {
@@ -55,18 +55,28 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html'
+            template: './index.html',
+            favicon: './favicon.ico',
+            inject: true
         }),
         new CleanWebpackPlugin(),
         new webPack.HotModuleReplacementPlugin()
     ],
-    mode: 'development', 
+    mode: 'development',
     devServer: {
         contentBase: './dist',
-        host: '0.0.0.0',
+        // host: '0.0.0.0',
         open: true,
         hot: true,
-        useLocalIp: true
+        openPage: 'http://localhost:8080',
+        proxy: {
+            '/api': {
+                target: "http://localhost:3000",
+                pathRewrite: { "^/api": "" }
+            }
+        }
+
+        // useLocalIp: true
         // hotOnly: true
     }
 }

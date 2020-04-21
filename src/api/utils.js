@@ -8,3 +8,25 @@ export const getCount = (count) => {
       return Math.floor (count / 10000000)/ 10 + "亿";
     }
   }
+
+export const debounce = (func, delay) => {
+  let timeout = null;
+  return function(...args) {
+    if(timeout) {
+      clearTimeout(timeout)
+    }
+    timeout = setTimeout(() => {
+      func.apply(this, args)
+    }, delay)
+  }
+}  
+
+
+export const filterIndex = rankList => {
+  for (let i = 0; i < rankList.length - 1; i++) {
+    if (rankList [i].tracks.length && !rankList [i + 1].tracks.length) {
+      return i + 1
+    }
+  }
+  return 0
+}

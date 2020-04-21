@@ -6,7 +6,7 @@ import { renderRoutes } from 'react-router-config'
 import routes from './routes'
 import { Provider } from 'react-redux'
 import store from './store'
-
+console.log(store)
 const App = () => {
     return (
         <Provider store={store}>
