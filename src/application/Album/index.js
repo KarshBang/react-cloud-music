@@ -4,13 +4,13 @@ import { Container, TopDesc, Menu, SongList, SongItem } from './style'
 import { CSSTransition } from 'react-transition-group'
 import Header from '../../baseUI/header'
 import Scroll from '../../baseUI/scroll'
-import { getCount, getName } from '../../api/utils'
+import { getCount } from '../../api/utils'
 import { connect } from 'react-redux'
 import { changeEnterLoading, getAlbumList } from './store/actionCreator'
 import { isEmptyObject, getParentUrl } from '../../api/utils'
 import Loading from '../../baseUI/loading'
-
-export const HEADER_HEIGHT = 45
+import SongsList from '../SongsList'
+import {HEADER_HEIGHT} from '../../api/config'
 
 const Album = (props) => {
     const id = props.match.params.id;
@@ -100,40 +100,6 @@ const Album = (props) => {
         </Menu>
     )
 
-    const renderSongList = () => (
-        <SongList>
-            <div className='first-line'>
-                <div className='play-all'>
-                    <i className="iconfont">&#xe6e3;</i>
-                    <span>播放全部<span className='sum'>(共 {currentAlbum.tracks.length} 首)</span></span>
-                </div>
-                <div className='add-list'>
-                    <i className="iconfont">&#xe62d;</i>
-                    <span > 收藏 ({getCount(currentAlbum.subscribedCount)})</span>
-
-                </div>
-            </div>
-            <SongItem>
-                {
-                    currentAlbum.tracks.map((item, index) => {
-                        return (
-                            <li key={index}>
-                                <span className='index'>{index + 1}</span>
-                                <div className='info'>
-                                    <span>{item.name}</span>
-                                    <span>
-                                        {getName(item.ar)} - {item.al.name}
-                                    </span>
-                                </div>
-                            </li>
-                        )
-                    })
-                }
-            </SongItem>
-        </SongList>
-    )
-
-
     return (
         <CSSTransition
             in={showStatus}
@@ -150,7 +116,11 @@ const Album = (props) => {
                         <div>
                             {renderTopDesc()}
                             {renderMenu()}
-                            {renderSongList()}
+                            <SongsList
+                            songs={currentAlbum.tracks}
+                            collectCount={currentAlbum.subscribedCount}
+                            showCollect={true}
+                            ></SongsList>
                         </div>
                     </Scroll>
                 }

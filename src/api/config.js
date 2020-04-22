@@ -78,7 +78,7 @@ export const categoryTypes = [{
   name: "其他组合",
   key: "4003"
 },
-];
+]
 
 
 export const alphaTypes = [{
@@ -185,4 +185,6 @@ export const alphaTypes = [{
   key: "Z",
   name: "Z"
 }
-];
+]
+
+export const HEADER_HEIGHT = 45

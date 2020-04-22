@@ -67,7 +67,7 @@ const Singers = (props) => {
                         return (
 
                             //todo key={item.accountId}
-                            <ListItem key={index} onClick={() => {enterDetail(id)}}>
+                            <ListItem key={index} onClick={() => {enterDetail(item.id)}}>
                                 <div className='img_wrapper'>
                                     <Lazyload placeholder={<img src={placeholderImg} width='100%' height='100%' alt='music' />}>
                                         <img src={`${item.picUrl}?param=300x300`} width='100%' height='100%' alt='music' />
