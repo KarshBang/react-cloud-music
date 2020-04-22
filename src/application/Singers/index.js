@@ -20,6 +20,7 @@ import {
 import Lazyload, { forceCheck } from 'react-lazyload'
 import placeholderImg from './singer.png'
 import Loading from '../../baseUI/loading'
+import { renderRoutes } from 'react-router-config'
 
 const Singers = (props) => {
     const { singerList, enterLoading, pullUpLoading, pullDownLoading, pageCount } = props
@@ -33,6 +34,10 @@ const Singers = (props) => {
             getHotSingerDispatch()
         }
     }, [])
+
+    const enterDetail = (id) => {
+        props.history.push(`/singers/${id}`)
+    }
 
     const handleUpdateCategory = (val) => {
         setCategory(val)
@@ -62,7 +67,7 @@ const Singers = (props) => {
                         return (
 
                             //todo key={item.accountId}
-                            <ListItem key={index}>
+                            <ListItem key={index} onClick={() => {enterDetail(id)}}>
                                 <div className='img_wrapper'>
                                     <Lazyload placeholder={<img src={placeholderImg} width='100%' height='100%' alt='music' />}>
                                         <img src={`${item.picUrl}?param=300x300`} width='100%' height='100%' alt='music' />
@@ -104,6 +109,7 @@ const Singers = (props) => {
                     {renderSingerList()}
                 </Scroll>
             </ListContainer>
+            {renderRoutes(props.route.routes)}
         </>
     )
 }

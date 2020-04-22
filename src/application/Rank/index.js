@@ -5,6 +5,7 @@ import { filterIndex } from '../../api/utils'
 import { Container, List, ListItem, SongList } from './style'
 import Scroll from '../../baseUI/scroll'
 import Loading from '../../baseUI/loading'
+import { renderRoutes } from 'react-router-config'
 const Rank = (props) => {
     const { rankList: list, loading } = props
     const { getRankListDispatch } = props
@@ -14,6 +15,10 @@ const Rank = (props) => {
     const globalStartIndex = filterIndex(rankList)
     const officialList = rankList.slice(0, globalStartIndex)
     const globalList = rankList.slice(globalStartIndex)
+
+    const enterDetail = (detail) => {
+        props.history.push(`/rank/${detail.id}`)
+    }
 
     useEffect(() => {
         getRankListDispatch();
@@ -37,7 +42,7 @@ const Rank = (props) => {
                 {
                     list.map((item) => {
                         return (
-                            <ListItem key={item.coverImgId} tracks={item.tracks}>
+                            <ListItem key={item.coverImgId} tracks={item.tracks} onClick={() => {enterDetail(item)}}>
                                 <div className='img-wrapper'>
                                     <img src={item.coverImgUrl} alt='' />
                                     <div className='decorate'></div>
@@ -53,7 +58,7 @@ const Rank = (props) => {
     }
     const displayStyle = loading ? { 'display': 'none' } : { 'display': '' }
 
-    console.log(props.route)
+    // console.log(props.route)
     return (
         <Container>
             <Scroll>
@@ -62,10 +67,11 @@ const Rank = (props) => {
                     {renderRankList(officialList, false)}
                     <h1 className="global" style={displayStyle}> 全球榜 </h1>
                     {renderRankList(globalList, true)}
-                    
+
                     {loading && <Loading></Loading>}
                 </div>
             </Scroll>
+            {renderRoutes(props.route.routes)}
         </Container>
     )
 }
